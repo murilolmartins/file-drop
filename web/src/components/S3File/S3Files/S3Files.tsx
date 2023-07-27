@@ -1,11 +1,11 @@
-import { Link, routes } from '@redwoodjs/router'
+import { Button, List } from 'antd'
+import { AiOutlineFilePdf } from 'react-icons/ai'
+import type { DeleteS3FileMutationVariables, FindS3Files } from 'types/graphql'
+
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
 import { QUERY } from 'src/components/S3File/S3FilesCell'
-import { timeTag, truncate } from 'src/lib/formatters'
-
-import type { DeleteS3FileMutationVariables, FindS3Files } from 'types/graphql'
 
 const DELETE_S3_FILE_MUTATION = gql`
   mutation DeleteS3FileMutation($id: Int!) {
@@ -37,67 +37,58 @@ const S3FilesList = ({ s3Files }: FindS3Files) => {
   }
 
   return (
-    <div className="rw-segment rw-table-wrapper-responsive">
-      <table className="rw-table">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Pre signed url</th>
-            <th>Path</th>
-            <th>Bucket name</th>
-            <th>Mime type</th>
-            <th>Version</th>
-            <th>Version id</th>
-            <th>Created at</th>
-            <th>Updated at</th>
-            <th>&nbsp;</th>
-          </tr>
-        </thead>
-        <tbody>
-          {s3Files.map((s3File) => (
-            <tr key={s3File.id}>
-              <td>{truncate(s3File.id)}</td>
-              <td>{truncate(s3File.name)}</td>
-              <td>{truncate(s3File.preSignedUrl)}</td>
-              <td>{truncate(s3File.path)}</td>
-              <td>{truncate(s3File.bucketName)}</td>
-              <td>{truncate(s3File.mimeType)}</td>
-              <td>{truncate(s3File.version)}</td>
-              <td>{truncate(s3File.versionId)}</td>
-              <td>{timeTag(s3File.createdAt)}</td>
-              <td>{timeTag(s3File.updatedAt)}</td>
-              <td>
-                <nav className="rw-table-actions">
-                  <Link
-                    to={routes.s3File({ id: s3File.id })}
-                    title={'Show s3File ' + s3File.id + ' detail'}
-                    className="rw-button rw-button-small"
-                  >
-                    Show
-                  </Link>
-                  <Link
-                    to={routes.editS3File({ id: s3File.id })}
-                    title={'Edit s3File ' + s3File.id}
-                    className="rw-button rw-button-small rw-button-blue"
-                  >
-                    Edit
-                  </Link>
-                  <button
-                    type="button"
-                    title={'Delete s3File ' + s3File.id}
-                    className="rw-button rw-button-small rw-button-red"
-                    onClick={() => onDeleteClick(s3File.id)}
-                  >
-                    Delete
-                  </button>
-                </nav>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <List
+      itemLayout="horizontal"
+      style={{
+        width: '90%',
+        border: '3px solid #eee',
+        padding: '0px 10px',
+        minHeight: '80vh',
+        borderRadius: '10px',
+        overflowY: 'scroll',
+      }}
+      dataSource={s3Files}
+      renderItem={(file) => (
+        <List.Item
+          style={{
+            padding: '20px',
+            border: '1px solid #eee',
+            borderRadius: '10px',
+            margin: '10px 0px',
+            boxShadow: '0px 0px 10px 0px #eee',
+          }}
+        >
+          <List.Item.Meta
+            avatar={<AiOutlineFilePdf size={30} />}
+            title={<a href="https://ant.design">{file.name}</a>}
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          />
+          <nav className="rw-table-actions">
+            <Button
+              type="primary"
+              href={file.preSignedUrl}
+              target="_blank"
+              title={'Show file ' + file.id + ' detail'}
+              rel="noreferrer"
+            >
+              Download
+            </Button>
+            <Button
+              type="primary"
+              danger
+              title={'Delete file ' + file.id}
+              onClick={() => onDeleteClick(file.id)}
+            >
+              Delete
+            </Button>
+          </nav>
+        </List.Item>
+      )}
+    />
   )
 }
 
