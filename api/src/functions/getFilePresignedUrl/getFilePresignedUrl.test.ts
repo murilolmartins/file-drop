@@ -19,7 +19,8 @@ describe('getFilePresignedUrl function', () => {
   it('Should respond with 200', async () => {
     const httpEvent = mockHttpEvent({
       queryStringParameters: {
-        fileName: 'README.txt', // Add parameters here
+        fileName: 'README.txt',
+        userId: '1',
       },
     })
 
@@ -28,10 +29,8 @@ describe('getFilePresignedUrl function', () => {
     const response = await handler(httpEvent, null)
     const { data } = JSON.parse(response.body)
 
-    console.log(data)
-
     expect(response.statusCode).toBe(200)
-    expect(data.path).toBe('files/README.txt')
+    expect(data.path).toBe('user/1/files/README.txt')
     expect(data.preSignedUrl).toBe('url')
   })
 

@@ -41,7 +41,6 @@ export default class ConnectionAPI {
     config?: AxiosRequestConfig
   ): Promise<T> {
     return this.call<T>(url, method, body, config).catch((error) => {
-      console.log(error)
       if (error.response) {
         switch (error.response.status) {
           case 401:

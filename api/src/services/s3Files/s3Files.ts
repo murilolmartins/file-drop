@@ -2,7 +2,6 @@ import AWS from 'aws-sdk'
 import type { QueryResolvers, MutationResolvers } from 'types/graphql'
 
 import { db } from 'src/lib/db'
-import { logger } from 'src/lib/logger'
 
 export const s3 = new AWS.S3({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -30,8 +29,6 @@ export const createS3File: MutationResolvers['createS3File'] = async ({
   const files = await db.s3File.findMany({ where: { name: input.name } })
 
   const version = files.length + 1
-
-  logger.info('version', version)
 
   const data = {
     data: {

@@ -37,7 +37,6 @@ describe('s3Files', () => {
         bucketName: 'String',
         mimeType: 'String',
         versionId: 'String6135062',
-        updatedAt: '2023-07-27T20:33:27.585Z',
       },
     })
 

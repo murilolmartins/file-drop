@@ -12,7 +12,6 @@ export async function checkAndUploadFile(
   const { fileContent } = await getFileContent(fileName, userId)
 
   if (fileContent) {
-    console.log('fileContent', fileContent)
     const isSameFile = await compareFileContentWithBuffer(
       fileContent,
       newFileContent
