@@ -1,7 +1,8 @@
 import type { APIGatewayEvent, Context } from 'aws-lambda'
+import AWS from 'aws-sdk'
 
 import { logger } from 'src/lib/logger'
-import { s3 } from 'src/lib/s3Client'
+// import { s3 } from 'src/lib/s3Client'
 
 /**
  * The handler function is your code that processes http request events.
@@ -22,6 +23,13 @@ import { s3 } from 'src/lib/s3Client'
 
 export const handler = async (event: APIGatewayEvent, _context: Context) => {
   logger.info(`${event.httpMethod} ${event.path}: getFilePresignedUrl function`)
+
+  const s3 = new AWS.S3({
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    region: process.env.AWS_REGION,
+    signatureVersion: 'v4',
+  })
 
   const { fileName } = event.queryStringParameters
 

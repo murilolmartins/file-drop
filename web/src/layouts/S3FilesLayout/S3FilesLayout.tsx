@@ -9,11 +9,15 @@ const S3FilesLayout = ({ children }: S3FilesLayoutProps) => {
     <div className="rw-scaffold">
       <Toaster toastOptions={{ className: 'rw-toast', duration: 6000 }} />
       <header className="rw-header s3-files-header">
-        <h1 className="rw-heading rw-heading-primary">DRAG AND DROP FILES</h1>
-        <p>
+        <h1>DRAG AND DROP FILES</h1>
+        <h2>
           Drag and drop your file into the container to store it in the S3
           Bucket
-        </p>
+        </h2>
+        <span className="s3-files-conditions">
+          <p>File types: txt, png, jpg, jpeg, csv and pdf</p>
+          <p>Max size: 5MB</p>
+        </span>
       </header>
       <main className="rw-main s3-files-main">{children}</main>
     </div>

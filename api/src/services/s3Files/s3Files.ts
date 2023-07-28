@@ -1,8 +1,15 @@
+import AWS from 'aws-sdk'
 import type { QueryResolvers, MutationResolvers } from 'types/graphql'
 
 import { db } from 'src/lib/db'
 import { logger } from 'src/lib/logger'
-import { s3 } from 'src/lib/s3Client'
+
+export const s3 = new AWS.S3({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: process.env.AWS_REGION,
+  signatureVersion: 'v4',
+})
 
 export const s3Files: QueryResolvers['s3Files'] = () => {
   return db.s3File.findMany({ orderBy: { createdAt: 'desc' } })
