@@ -28,5 +28,5 @@ export async function checkAndUploadFile(
 
   const fileUrlWithVersionId = `${fileUrl}?versionId=${versionId}`
 
-  return { fileUrlWithVersionId, path }
+  return { fileUrlWithVersionId, path, versionId }
 }

@@ -15,7 +15,9 @@
 .rw-scaffold h2 {
   margin: 0;
 }
-
+.rw-scaffold a {
+  background-color: transparent;
+}
 .rw-scaffold ul {
   margin: 0;
   padding: 0;
@@ -355,7 +357,9 @@
   height: 17px;
   padding-right: 0.25rem;
 }
-
+.rw-table-actions .rw-button {
+  background-color: transparent;
+}
 .rw-table-actions .rw-button:hover {
   background-color: #718096;
   color: #fff;

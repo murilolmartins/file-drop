@@ -11,14 +11,16 @@ import { Set, Router, Route } from '@redwoodjs/router'
 
 import ScaffoldLayout from 'src/layouts/ScaffoldLayout'
 
+import S3FilesLayout from './layouts/S3FilesLayout/S3FilesLayout'
+
 const Routes = () => {
   return (
     <Router>
-      <Set wrap={ScaffoldLayout} title="S3Files" titleTo="s3Files" buttonLabel="New S3File" buttonTo="newS3File">
-        <Route path="/s3-files/new" page={S3FileNewS3FilePage} name="newS3File" />
-        <Route path="/s3-files/{id:Int}/edit" page={S3FileEditS3FilePage} name="editS3File" />
-        <Route path="/s3-files/{id:Int}" page={S3FileS3FilePage} name="s3File" />
+      <Set wrap={S3FilesLayout}>
         <Route path="/s3-files" page={S3FileS3FilesPage} name="s3Files" />
+      </Set>
+      <Set wrap={ScaffoldLayout} title="S3File" titleTo="s3Files" buttonLabel="Return" buttonTo="s3Files">
+        <Route path="/s3-files/{id:Int}" page={S3FileS3FilePage} name="s3File" />
       </Set>
       <Route notfound page={NotFoundPage} />
     </Router>

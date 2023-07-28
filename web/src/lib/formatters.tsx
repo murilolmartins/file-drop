@@ -45,7 +45,9 @@ export const timeTag = (dateTime?: string) => {
   if (dateTime) {
     output = (
       <time dateTime={dateTime} title={dateTime}>
-        {new Date(dateTime).toUTCString()}
+        {new Date(dateTime).toLocaleString('pt-BR', {
+          timeZone: 'America/Sao_Paulo',
+        })}
       </time>
     )
   }

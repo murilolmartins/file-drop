@@ -1,13 +1,13 @@
-import { Link, routes, navigate } from '@redwoodjs/router'
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/toast'
-
-import { timeTag } from 'src/lib/formatters'
-
 import type {
   DeleteS3FileMutationVariables,
   FindS3FileById,
 } from 'types/graphql'
+
+import { routes, navigate } from '@redwoodjs/router'
+import { useMutation } from '@redwoodjs/web'
+import { toast } from '@redwoodjs/web/toast'
+
+import { timeTag } from 'src/lib/formatters'
 
 const DELETE_S3_FILE_MUTATION = gql`
   mutation DeleteS3FileMutation($id: Int!) {
@@ -92,12 +92,6 @@ const S3File = ({ s3File }: Props) => {
         </table>
       </div>
       <nav className="rw-button-group">
-        <Link
-          to={routes.editS3File({ id: s3File.id })}
-          className="rw-button rw-button-blue"
-        >
-          Edit
-        </Link>
         <button
           type="button"
           className="rw-button rw-button-red"

@@ -4,19 +4,20 @@ import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/dist/toast'
 
 import { checkAndUploadFile } from 'src/integrations/s3/checkFileAndUpload'
+import { checkFile } from 'src/integrations/s3/fileConditions'
 
 import { QUERY } from '../../S3FilesCell'
 
-const CREATE_FILE_MUTATION = gql`
-  mutation CreateFileMutation($input: CreateFileInput!) {
-    createFile(input: $input) {
+const CREATE_S3_FILE_MUTATION = gql`
+  mutation CreateS3FileMutation($input: CreateS3FileInput!) {
+    createS3File(input: $input) {
       id
     }
   }
 `
 
 export const useDropFile = () => {
-  const [createFile] = useMutation(CREATE_FILE_MUTATION, {
+  const [createS3File] = useMutation(CREATE_S3_FILE_MUTATION, {
     onError: (error) => {
       toast.error(error.message)
     },
@@ -34,6 +35,8 @@ export const useDropFile = () => {
 
         const [file] = files as FileList
 
+        checkFile(file)
+
         const response = await checkAndUploadFile(file.name, file)
 
         if (!response) {
@@ -42,9 +45,7 @@ export const useDropFile = () => {
           return
         }
 
-        console.log('response', response.fileUrlWithVersionId)
-
-        await createFile({
+        await createS3File({
           variables: {
             input: {
               name: file.name,
@@ -52,6 +53,7 @@ export const useDropFile = () => {
               bucketName: process.env.FILES_BUCKET,
               path: response.path,
               preSignedUrl: response.fileUrlWithVersionId,
+              versionId: response.versionId,
             },
           },
         })

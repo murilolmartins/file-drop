@@ -22883,7 +22883,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:15.8.1, prop-types@npm:^15.0.0, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
+"prop-types@npm:15.8.1, prop-types@npm:^15.0.0, prop-types@npm:^15.6.0, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -23771,6 +23771,15 @@ __metadata:
   peerDependencies:
     react: ^18.2.0
   checksum: 66dfc5f93e13d0674e78ef41f92ed21dfb80f9c4ac4ac25a4b51046d41d4d2186abc915b897f69d3d0ebbffe6184e7c5876f2af26bfa956f179225d921be713a
+  languageName: node
+  linkType: hard
+
+"react-download-link@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "react-download-link@npm:2.3.0"
+  dependencies:
+    prop-types: ^15.6.0
+  checksum: c71a898810ee5de921f437008e142ab3e9e0f6f3c241656228d6a0ff86ce30c006d4d535da1c1a0e912facd2e293955331535bbe5a385597012b582f29b2cf48
   languageName: node
   linkType: hard
 
@@ -27748,6 +27757,7 @@ __metadata:
     prop-types: 15.8.1
     react: 18.2.0
     react-dom: 18.2.0
+    react-download-link: ^2.3.0
     react-icons: ^4.10.1
   languageName: unknown
   linkType: soft

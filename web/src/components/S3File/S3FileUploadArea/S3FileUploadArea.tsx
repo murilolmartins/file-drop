@@ -2,11 +2,11 @@ import { ReactNode } from 'react'
 
 import { useDropFile } from './hooks/useDropFile'
 
-interface FileUploadAreaProps {
+interface S3FileUploadAreaProps {
   children: ReactNode
 }
 
-const FileUploadArea = ({ children }: FileUploadAreaProps) => {
+const S3FileUploadArea = ({ children }: S3FileUploadAreaProps) => {
   const { handleDrop, handleDragOver } = useDropFile()
 
   return (
@@ -16,4 +16,4 @@ const FileUploadArea = ({ children }: FileUploadAreaProps) => {
   )
 }
 
-export default FileUploadArea
+export default S3FileUploadArea

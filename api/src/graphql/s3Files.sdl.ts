@@ -23,7 +23,6 @@ export const schema = gql`
     path: String!
     bucketName: String!
     mimeType: String!
-    version: Int!
     versionId: String!
   }
 
