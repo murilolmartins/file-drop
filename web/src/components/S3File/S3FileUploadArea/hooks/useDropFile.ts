@@ -3,6 +3,7 @@ import { DragEvent } from 'react'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/dist/toast'
 
+import { useAuth } from 'src/auth'
 import { checkAndUploadFile } from 'src/integrations/s3/checkFileAndUpload'
 import { checkFile } from 'src/integrations/s3/fileConditions'
 
@@ -24,6 +25,7 @@ export const useDropFile = () => {
     refetchQueries: [{ query: QUERY }],
     awaitRefetchQueries: true,
   })
+  const { currentUser } = useAuth()
 
   const handleDrop = async (event: DragEvent<HTMLDivElement>) => {
     try {
@@ -37,7 +39,11 @@ export const useDropFile = () => {
 
         checkFile(file)
 
-        const response = await checkAndUploadFile(file.name, file)
+        const response = await checkAndUploadFile(
+          file.name,
+          file,
+          currentUser.id
+        )
 
         if (!response) {
           toast.remove('uploading')

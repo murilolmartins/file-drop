@@ -10,11 +10,11 @@ interface GetFileContentResponse {
   }
 }
 
-export async function getFileContent(fileName: string) {
+export async function getFileContent(fileName: string, userId: number) {
   const {
     data: { fileContent, versionId },
   } = await connectionAPIGet<GetFileContentResponse>(
-    `/.redwood/functions/getFileContent?fileName=${fileName}`
+    `/.redwood/functions/getFileContent?fileName=${fileName}&userId=${userId}`
   )
 
   return { fileContent, versionId }

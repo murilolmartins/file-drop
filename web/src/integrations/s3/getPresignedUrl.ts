@@ -7,11 +7,11 @@ interface GetPresignedUrlResponse {
   }
 }
 
-export const getPresignedUrl = async (fileName: string) => {
+export const getPresignedUrl = async (fileName: string, userId: number) => {
   const {
     data: { preSignedUrl, path },
   } = await connectionAPIGet<GetPresignedUrlResponse>(
-    `/.redwood/functions/getFilePresignedUrl?fileName=${fileName}`
+    `/.redwood/functions/getFilePresignedUrl?fileName=${fileName}&userId=${userId}`
   )
 
   return { preSignedUrl, path }

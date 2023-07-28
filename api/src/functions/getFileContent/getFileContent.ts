@@ -24,7 +24,7 @@ export const handler = async (event: APIGatewayEvent, _context: Context) => {
   logger.info(`${event.httpMethod} ${event.path}: getFileContentHash function`)
 
   try {
-    const { fileName } = event.queryStringParameters
+    const { fileName, userId } = event.queryStringParameters
 
     const s3 = new AWS.S3({
       accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -35,7 +35,7 @@ export const handler = async (event: APIGatewayEvent, _context: Context) => {
 
     const params = {
       Bucket: process.env.FILES_BUCKET,
-      Key: `files/${fileName}`,
+      Key: `user/${userId}/files/${fileName}`,
     }
 
     const response = await s3.getObject(params).promise()

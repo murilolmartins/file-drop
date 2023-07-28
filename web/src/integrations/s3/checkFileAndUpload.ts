@@ -6,9 +6,10 @@ import { uploadFileWithPreSignedUrl } from './uploadFIleWithPreSignedUrl'
 
 export async function checkAndUploadFile(
   fileName: string,
-  newFileContent: File
+  newFileContent: File,
+  userId: number
 ) {
-  const { fileContent } = await getFileContent(fileName)
+  const { fileContent } = await getFileContent(fileName, userId)
 
   if (fileContent) {
     console.log('fileContent', fileContent)
@@ -18,11 +19,11 @@ export async function checkAndUploadFile(
     )
     if (isSameFile) return null
   }
-  const { preSignedUrl, path } = await getPresignedUrl(fileName)
+  const { preSignedUrl, path } = await getPresignedUrl(fileName, userId)
 
   await uploadFileWithPreSignedUrl(preSignedUrl, newFileContent)
 
-  const { versionId } = await getFileContent(fileName)
+  const { versionId } = await getFileContent(fileName, userId)
 
   const fileUrl = preSignedUrl.split('?')[0]
 

@@ -10,6 +10,8 @@ export const schema = gql`
     versionId: String!
     createdAt: DateTime!
     updatedAt: DateTime!
+    user: User!
+    userId: Int!
   }
 
   type Query {

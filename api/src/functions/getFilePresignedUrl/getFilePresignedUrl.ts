@@ -31,9 +31,9 @@ export const handler = async (event: APIGatewayEvent, _context: Context) => {
     signatureVersion: 'v4',
   })
 
-  const { fileName } = event.queryStringParameters
+  const { fileName, userId } = event.queryStringParameters
 
-  const path = `files/${fileName}`
+  const path = `user/${userId}/files/${fileName}`
 
   const params = {
     Bucket: process.env.FILES_BUCKET,

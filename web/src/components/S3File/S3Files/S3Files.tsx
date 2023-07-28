@@ -75,7 +75,7 @@ const S3FilesList = ({ s3Files }: FindS3Files) => {
           width: '100%',
           border: '3px solid #eee',
           padding: '0px 10px',
-          minHeight: '80vh',
+          minHeight: '75vh',
           borderRadius: '10px',
           overflowY: 'scroll',
         }}

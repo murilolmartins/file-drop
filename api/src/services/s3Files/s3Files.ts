@@ -12,12 +12,15 @@ export const s3 = new AWS.S3({
 })
 
 export const s3Files: QueryResolvers['s3Files'] = () => {
-  return db.s3File.findMany({ orderBy: { createdAt: 'desc' } })
+  return db.s3File.findMany({
+    where: { userId: context.currentUser.id },
+    orderBy: { createdAt: 'desc' },
+  })
 }
 
 export const s3File: QueryResolvers['s3File'] = ({ id }) => {
-  return db.s3File.findUnique({
-    where: { id },
+  return db.s3File.findFirst({
+    where: { id, userId: context.currentUser.id },
   })
 }
 
@@ -34,6 +37,7 @@ export const createS3File: MutationResolvers['createS3File'] = async ({
     data: {
       ...input,
       version,
+      userId: context.currentUser.id,
     },
   }
 
@@ -74,4 +78,9 @@ export const deleteS3File: MutationResolvers['deleteS3File'] = async ({
   return await db.s3File.delete({
     where: { id },
   })
+}
+
+export const S3File = {
+  user: (_obj, { root }) =>
+    db.s3File.findFirst({ where: { id: root.id } }).user(),
 }
